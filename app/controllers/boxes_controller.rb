@@ -1,5 +1,6 @@
 class BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
+  before_action :set_cards, only: [:show, :edit]
 
   # GET /boxes
   # GET /boxes.json
@@ -10,7 +11,6 @@ class BoxesController < ApplicationController
   # GET /boxes/1
   # GET /boxes/1.json
   def show
-    @cards = @box.cards.all
   end
 
   # GET /boxes/new
@@ -66,6 +66,10 @@ class BoxesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_box
       @box = Box.find(params[:id])
+    end
+
+    def set_cards
+      @cards = @box.cards.all
     end
 
     # Only allow a list of trusted parameters through.
