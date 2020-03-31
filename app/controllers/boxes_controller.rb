@@ -10,6 +10,7 @@ class BoxesController < ApplicationController
   # GET /boxes/1
   # GET /boxes/1.json
   def show
+    @cards = @box.cards.all
   end
 
   # GET /boxes/new

@@ -12,7 +12,6 @@
 
 <p>
  <strong>Cards</strong>
-  <% @cards = @box.cards.all %>
   <%= render partial: "cards/card_table", locals: { cards: @cards } %>
 </p>
 
