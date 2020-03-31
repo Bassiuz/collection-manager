@@ -1,0 +1,19 @@
+<p>
+  <strong>Name:</strong>
+  <%= @card.name %>
+</p>
+
+<p>
+  <strong>Foil:</strong>
+  <%= @card.foil %>
+</p>
+
+<p>
+  <strong>Set:</strong>
+  <%= @card.set %>
+</p>
+
+<p>
+  <strong>Box:</strong>
+  <%= link_to @card.box.name, box_path(@card.box) %>
+</p>

@@ -10,6 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_03_30_130555) do
 
+  create_table "boxes", force: :cascade do |t|
+    t.string "name"
+    t.integer "size"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "name"
+    t.boolean "foil"
+    t.string "set"
+    t.integer "box_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["box_id"], name: "index_cards_on_box_id"
+  end
+
+  add_foreign_key "cards", "boxes"
 end

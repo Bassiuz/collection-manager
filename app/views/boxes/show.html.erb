@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @box.name %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @box.size %>
+</p>
+
+<p>
+ <strong>Cards</strong>
+  <% @cards = @box.cards.all %>
+  <%= render partial: "cards/card_table", locals: { cards: @cards } %>
+</p>
+
+<%= link_to 'Edit', edit_box_path(@box) %> |
+<%= link_to 'Back', boxes_path %>

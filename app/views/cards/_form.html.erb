@@ -1,0 +1,8 @@
+<%= simple_form_for @card do |f| %>
+  <%= f.input :name %>
+  <%= f.input :foil %>
+  <%= f.input :set %>
+  <%= f.association :box %>
+
+  <%= f.button :submit %>
+<% end %>
