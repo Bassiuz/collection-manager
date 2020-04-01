@@ -8,7 +8,7 @@ end
 
 When("I navigate to the import page") do
     visit "/import"
-    assert current_path == import_index_path
+    expect(current_path).to eql(import_index_path)
 end
 
 When("I submit my list in the import page") do
