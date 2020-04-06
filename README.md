@@ -19,7 +19,7 @@ Nice things to have would be;
 
 
 
-##To-do list:
+## To-do list:
 - refactor the basics 
 - create import/export with EZImport (https://github.com/jkorz/ezimport)
 - create card retrieval view
