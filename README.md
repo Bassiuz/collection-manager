@@ -15,3 +15,11 @@ Nice things to have would be;
 - Backupable in a simple way (and automated with a cronjob?)
 - A seperated 'publicly available' part where people can look at my collection.
 - A beautify UI
+- Autofill cardnames
+
+
+
+##To-do list:
+- refactor the basics 
+- create import/export with EZImport (https://github.com/jkorz/ezimport)
+- create card retrieval view
