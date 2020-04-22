@@ -7,9 +7,13 @@ class ImportController < ApplicationController
 
   # GET /import
   def create
-    result = ImportParser.parse_input(params["import_input"])
-    @cards = result if (!result.key?(:error_code))
-    @error = result if (result.key?(:error_code))
+    @result = ImportParser.parse_input(params["import_input"])
+
+    if @result.key?(:error_code)
+      @error = @result
+    else
+      @cards = @result[:cards]
+    end
   end
 
   private

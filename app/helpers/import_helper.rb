@@ -7,9 +7,9 @@ module ImportHelper
             for card in cards
                 if (current_box != card.box)
                     current_box = card.box
-                    @message = @message + "Add these cards to box #{card.box.name}"
+                    @message = @message + "Add these cards to box #{card.box.name} : "
                 end
-                @message = @message + card.name
+                @message = @message + card.name + " "
             end
             @message
         else

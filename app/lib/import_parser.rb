@@ -7,7 +7,6 @@ class ImportParser
                 raise Exceptions::InputNotValid.new if input.split("; ").count() % 3 != 0
                 card_rows = input.split("; ").in_groups(3)
                 card_rows.each do |card_row|
-                    #["1x", "Vastwood Hydra", "Magic 2014"]
                     amount,name,set = card_row
                     amount = parse_amount(amount)
                     amount.times do
@@ -15,7 +14,7 @@ class ImportParser
                         cards << box.cards.create!(name: name, set: set)
                     end
                 end
-                result = cards
+                result = {cards: cards}
             rescue Exceptions::BoxError => exc
                 p "Error while looking for box: #{exc.message}"
                 result = {error_code:exc.error_code, message: exc.message}
