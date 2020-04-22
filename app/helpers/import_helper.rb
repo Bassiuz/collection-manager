@@ -1,5 +1,5 @@
 module ImportHelper
-    def generate_return_message(cards)
+    def self.generate_return_message(cards)
         if cards.length > 0
             @message = ""
             for card in cards
