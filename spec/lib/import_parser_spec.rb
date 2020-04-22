@@ -44,5 +44,55 @@ RSpec.describe ImportParser do
         expect(Card.where(name:"Tamiyo, Collector of Tales", id: @added_cards.pluck(:id)).count()).to eql(2)
       end
     end
+
+    describe " To give an error when there is no box available" do
+      let(:input) { "1x; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
+      before do
+        parse(input)
+      end
+
+      def parse(input)
+        @added_cards = described_class.parse_input(input)
+      end
+           
+      it "Able to parse a string to cards" do
+        expect(@added_cards[:error_code]).to eql(Exceptions::BoxNotFound.new.error_code)
+        expect(@added_cards[:message]).to eql(Exceptions::BoxNotFound.new.message)
+      end
+    end
+
+    describe " To give an error when there is no valid input given" do
+      let(:input) { "asdfasdfasdfasdf" }
+      before do        
+        Box.create!(name: "test", size: 200)
+        parse(input)
+      end
+
+      def parse(input)
+        @added_cards = described_class.parse_input(input)
+      end
+           
+      it "Able to parse a string to cards" do
+        expect(@added_cards[:error_code]).to eql(Exceptions::InputNotValid.new.error_code)
+        expect(@added_cards[:message]).to eql(Exceptions::InputNotValid.new.message)
+      end
+    end
+
+    describe " To give an error when there is no valid input given" do
+      let(:input) { "een keer; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
+      before do        
+        Box.create!(name: "test", size: 200)
+        parse(input)
+      end
+
+      def parse(input)
+        @added_cards = described_class.parse_input(input)
+      end
+           
+      it "Able to parse a string to cards" do
+        expect(@added_cards[:error_code]).to eql(Exceptions::InputNotAValidNumber.new.error_code)
+        expect(@added_cards[:message]).to eql(Exceptions::InputNotAValidNumber.new.message)
+      end
+    end
   end
 end
