@@ -60,6 +60,24 @@ RSpec.describe ImportParser do
         expect(@added_cards[:message]).to eql(Exceptions::BoxNotFound.new.message)
       end
     end
+    
+    describe " To give an error when there is not a big enough box available" do
+      let(:input) { "2x; Tamiyo, Collector of Tales; War of the Spark; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
+      before do
+        Box.create!(name: "small box", size: 1)
+        parse(input)
+      end
+
+      def parse(input)
+        @added_cards = described_class.parse_input(input)
+      end
+           
+      it "Able to parse a string to cards" do
+        expect(Card.where(name:"Tamiyo, Collector of Tales").count()).to eql(0)
+        expect(@added_cards[:error_code]).to eql(Exceptions::BoxNotFound.new.error_code)
+        expect(@added_cards[:message]).to eql(Exceptions::BoxNotFound.new.message)
+      end
+    end
 
     describe " To give an error when there is no valid input given" do
       let(:input) { "asdfasdfasdfasdf" }
