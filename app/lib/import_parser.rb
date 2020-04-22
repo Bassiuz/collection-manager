@@ -19,11 +19,11 @@ class ImportParser
             rescue Exceptions::BoxError => exc
                 p "Error while looking for box: #{exc.message}"
                 result = {error_code:exc.error_code, message: exc.message}
-                raise ActiveRecord::Rollback, "Call tech support!"
+                raise ActiveRecord::Rollback, "Rolling back saving import"
             rescue Exceptions::InputError => exc
                 p "Error while parsing input: #{exc.message}"
                 result = {error_code:exc.error_code, message: exc.message}
-                raise ActiveRecord::Rollback, "Call tech support!"
+                raise ActiveRecord::Rollback, "Rolling back saving import"
             end
         end
         result
