@@ -1,2 +1,3 @@
 <h1>Imported cards</h1>
-<%= generate_return_message(@cards) %>
+<%= generate_return_message(@cards) if !@cards.nil? %>
+<%= @error[:message] if !@error.nil? %>
