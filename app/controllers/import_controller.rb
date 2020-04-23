@@ -2,10 +2,6 @@ class ImportController < ApplicationController
     before_action :set_import, only: [:index]
 
   # GET /import
-  def index
-  end
-
-  # GET /import
   def create
     @result = ImportParser.parse_input(params["import_input"])
 

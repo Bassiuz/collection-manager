@@ -1,6 +1,6 @@
-module Exceptions
+module Importer
     class BoxError < StandardError; end
-    class BoxNotFound < BoxError; 
+    class BoxNotFound < BoxError
         def message
             "No available box found"
         end
@@ -11,7 +11,7 @@ module Exceptions
 
 
     class InputError < StandardError; end
-    class InputNotValid < InputError;
+    class InputNotValid < InputError
         def message
             "Given input is not valid"
         end
@@ -19,7 +19,7 @@ module Exceptions
             "101"
         end
     end
-    class InputNotAValidNumber < InputError;
+    class InputNotAValidNumber < InputError
         def message
             "Given input is not a valid number"
         end

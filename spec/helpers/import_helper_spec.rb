@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'test/string_tool'
+require 'support/string_tool'
 
 RSpec.describe ImportHelper do
     describe ".generate_return_message" do # '.' for class method

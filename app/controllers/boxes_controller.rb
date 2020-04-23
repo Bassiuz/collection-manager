@@ -8,20 +8,11 @@ class BoxesController < ApplicationController
     @boxes = Box.all
   end
 
-  # GET /boxes/1
-  # GET /boxes/1.json
-  def show
-  end
-
   # GET /boxes/new
   def new
     @box = Box.new
   end
-
-  # GET /boxes/1/edit
-  def edit
-  end
-
+  
   # POST /boxes
   # POST /boxes.json
   def create
