@@ -2,24 +2,23 @@ require 'rails_helper'
 
  RSpec.describe Importer::Parser do
     describe ".parse_input" do # '.' for class method
-      describe " To save to database" do
+      describe "With a valid list of cards" do
+        subject do
+          described_class.parse_input(input)
+        end
+
         let(:input) { "1x; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
+        
         before do
           Box.create!(name: "test", size: 200)
         end
       
-        def parse(input)
-          described_class.parse_input(input)
+        it "imports the correct total amount of cards" do
+          expect {subject}.to change{Card.count}.by 4 
         end
              
-        it "Able to parse a string to cards" do
-          parse(input)
-          expect(Card.count()).to eql(4)
-        end
-             
-        it "Able to add the same card multiple times" do
-          parse(input)
-          expect(Card.where(name:"Tamiyo, Collector of Tales").count()).to eql(2)
+        it "imports cards with the same name multiple times" do
+          expect {subject}.to change{Card.where(name:"Tamiyo, Collector of Tales").count}.by 2 
         end
       end
     

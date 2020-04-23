@@ -1,4 +1,5 @@
 module Importer
+    class Exceptions; end
     class BoxError < StandardError; end
     class BoxNotFound < BoxError
         def message
