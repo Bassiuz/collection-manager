@@ -40,7 +40,7 @@ require 'rails_helper'
         it "Able to add the same card multiple times" do
           parse(input)
           expect(Card.where(name:"Tamiyo, Collector of Tales").count()).to eql(4)
-          expect(Card.where(name:"Tamiyo, Collector of Tales", id: @added_cards[:cards].pluck(:id)).count()).to eql(2)
+          expect(Card.where(name:"Tamiyo, Collector of Tales", id: @added_cards.pluck(:id)).count()).to eql(2)
         end
       end
     

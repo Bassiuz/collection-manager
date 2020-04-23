@@ -2,4 +2,5 @@
 <h1>Import</h1>
     <%= f.text_area(:import_input, rows: 15)%>
     <%= f.submit "Submit" %>
+    <%= @error&.message %>
 <% end %>
