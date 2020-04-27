@@ -2,7 +2,7 @@ require 'rails_helper'
 
  RSpec.describe Importer::Parser do
     describe ".parse_input" do # '.' for class method
-      describe "With a valid list of cards" do
+      describe "With a valid list of cards and a available box" do
         subject do
           described_class.parse_input(input)
         end
@@ -20,31 +20,17 @@ require 'rails_helper'
         it "imports cards with the same name multiple times" do
           expect {subject}.to change{Card.where(name:"Tamiyo, Collector of Tales").count}.by 2 
         end
-      end
-    
-      describe " To return the added cards" do
-        let(:input) { "1x; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
-        before do
-          Box.create!(name: "test", size: 200)
-          parse(input)
-        end
-      
-        def parse(input)
-          @added_cards = described_class.parse_input(input)
-        end
-             
-        it "Able to parse a string to cards" do
-          expect(Card.count()).to eql(4)
-        end
-             
-        it "Able to add the same card multiple times" do
-          parse(input)
+
+        it "returns only the card in the input list" do
+          described_class.parse_input(input)
+          @added_cards = subject
           expect(Card.where(name:"Tamiyo, Collector of Tales").count()).to eql(4)
           expect(Card.where(name:"Tamiyo, Collector of Tales", id: @added_cards.pluck(:id)).count()).to eql(2)
         end
       end
     
-      describe " To give an error when there is no box available" do
+    
+      describe "with no box available" do
         let(:input) { "1x; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
         before do
         end
@@ -53,12 +39,12 @@ require 'rails_helper'
           @added_cards = described_class.parse_input(input)
         end
              
-        it "Able to parse a string to cards" do
+        it "to raise an error because there is no box available" do
           expect {parse(input)}.to raise_error(Importer::BoxNotFound)
         end
       end
       
-      describe " To give an error when there is not a big enough box available" do
+      describe "with not enough space in boxes availble" do
         let(:input) { "2x; Tamiyo, Collector of Tales; War of the Spark; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
         before do
           Box.create!(name: "small box", size: 1)
@@ -68,7 +54,7 @@ require 'rails_helper'
           @added_cards = described_class.parse_input(input)
         end
              
-        it "Able to parse a string to cards" do
+        it "to not add any card to the boxes, even the ones that do fit" do
           begin 
             parse(input)
           rescue
@@ -76,12 +62,12 @@ require 'rails_helper'
           expect(Card.where(name:"Tamiyo, Collector of Tales").count()).to eql(0)
         end
 
-        it "Able to parse a string to cards2" do
+        it "to raise an error because there is not enough room available" do
           expect {parse(input)}.to raise_error(Importer::BoxNotFound)
         end
       end
     
-      describe " To divide the card over multiple boxes if needed" do
+      describe "With a valid list of cards and enough room divided between boxes" do
         let(:input) { "2x; Tamiyo, Collector of Tales; War of the Spark; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
         before do
           Box.create!(name: "small box", size: 2)
@@ -93,12 +79,12 @@ require 'rails_helper'
           @added_cards = described_class.parse_input(input)
         end
              
-        it "Able to parse a string to cards" do
+        it "to import the cards and put them into boxes" do
           expect(Card.where(name:"Tamiyo, Collector of Tales").count()).to eql(4)
         end
       end
     
-      describe " To give an error when there is no valid input given" do
+      describe "without a valid list of cards" do
         let(:input) { "asdfasdfasdfasdf" }
         before do        
           Box.create!(name: "test", size: 200)
@@ -108,12 +94,12 @@ require 'rails_helper'
           @added_cards = described_class.parse_input(input)
         end
         
-        it "Able to parse a string to cards2" do
+        it "To raise an error when trying to import the cards" do
           expect {parse(input)}.to raise_error(Importer::InputNotValid)
         end 
       end
     
-      describe " To give an error when there is no valid input given" do
+      describe "without a valid integer in the amount box of a list" do
         let(:input) { "een keer; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
         before do        
           Box.create!(name: "test", size: 200)
@@ -123,7 +109,7 @@ require 'rails_helper'
           @added_cards = described_class.parse_input(input)
         end
 
-        it "Able to parse a string to cards2" do
+        it "To raise an error when trying to import the cards" do
           expect {parse(input)}.to raise_error(Importer::InputNotAValidNumber)
         end  
       end
