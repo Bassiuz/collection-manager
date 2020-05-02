@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_130555) do
+ActiveRecord::Schema.define(version: 2020_05_02_102837) do
 
   create_table "boxes", force: :cascade do |t|
     t.string "name"
     t.integer "size"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "deckname"
+    t.string "box_type"
+    t.boolean "leave_box_in_tact"
   end
 
   create_table "cards", force: :cascade do |t|
