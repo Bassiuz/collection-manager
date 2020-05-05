@@ -30,6 +30,22 @@ require 'rails_helper'
       end
     
     
+      describe "with no storage box available" do
+        let(:input) { "1x; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
+        before do
+          Box.create!(name: "Tradebinder", size: 300, box_type:"Tradebinder")
+          Box.create!(name: "Deckbox", size: 1, box_type:"Deckbox")
+        end
+      
+        def parse(input)
+          @added_cards = described_class.parse_input(input)
+        end
+             
+        it "to raise an error because there is no box available" do
+          expect {parse(input)}.to raise_error(Importer::BoxNotFound)
+        end
+      end
+
       describe "with no box available" do
         let(:input) { "1x; Vastwood Hydra; Magic 2014; 2x; Tamiyo, Collector of Tales; War of the Spark; 1x; Blade of the Bloodchief; Zendikar" }
         before do

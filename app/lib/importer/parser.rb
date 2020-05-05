@@ -37,7 +37,7 @@ module Importer
         end
 
         def find_available_box #to-do: check the size of a box before selecting it.
-            box = Box.all.select{ |b| b.space_available > 0 }.first
+            box = Box.where(box_type: "Storage Box").select{ |b| b.space_available > 0 }.first
             raise BoxNotFound if box.nil?
             box
         end
