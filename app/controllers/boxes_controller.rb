@@ -5,23 +5,16 @@ class BoxesController < ApplicationController
   # GET /boxes
   # GET /boxes.json
   def index
-    @boxes = Box.all
-  end
-
-  # GET /boxes/1
-  # GET /boxes/1.json
-  def show
+    @storage_boxes = Box.where(box_type: "Storage Box")
+    @deck_boxes = Box.where(box_type: "Deckbox")
+    @trade_binders = Box.where(box_type: "Tradebinder")
   end
 
   # GET /boxes/new
   def new
     @box = Box.new
   end
-
-  # GET /boxes/1/edit
-  def edit
-  end
-
+  
   # POST /boxes
   # POST /boxes.json
   def create
@@ -74,6 +67,6 @@ class BoxesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def box_params
-      params.require(:box).permit(:name, :size)
+      params.require(:box).permit(:name, :size, :leave_box_in_tact, :box_type, :deckname)
     end
 end

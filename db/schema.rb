@@ -10,20 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_130555) do
+ActiveRecord::Schema.define(version: 2020_05_02_105710) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "boxes", force: :cascade do |t|
     t.string "name"
     t.integer "size"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "box_type", default: "Storage Box"
+    t.string "deck_name"
+    t.boolean "leave_box_in_tact"
   end
 
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.boolean "foil"
     t.string "set"
-    t.integer "box_id"
+    t.bigint "box_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["box_id"], name: "index_cards_on_box_id"
