@@ -6,9 +6,8 @@ module Finder
   class CardFinder
     attr_accessor :break_up_decks
 
-    def initialize(params)
-      @break_up_decks = params[:break_up_decks]
-      
+    def initialize(break_up_decks: false)
+      @break_up_decks = break_up_decks
     end
 
     def find_cards_for_name(card_names)
