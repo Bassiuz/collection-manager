@@ -67,6 +67,6 @@ class BoxesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def box_params
-      params.require(:box).permit(:name, :size, :leave_box_in_tact, :box_type, :deckname).merge(user: current_user)
+      params.require(:box).permit(:name, :size, :leave_box_in_tact, :type, :deckname).merge(user: current_user)
     end
 end

@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require './spec/factories/factories.rb'
 
 RSpec.describe Finder::CardFinder do
+  let(:user) { FactoryBot.create(:user) }
+
   describe '.find_cards_for_name' do # '.' for class method
     subject do
       described_class.new(break_up_decks: true).find_cards_for_name(input)
@@ -11,7 +14,7 @@ RSpec.describe Finder::CardFinder do
       let(:input) { '1x; Vastwood Hydra; 1x; Tamiyo, Collector of Tales' }
 
       before do
-        Box.create(name: 'test', size: 200) do |box|
+        Box.create(name: 'test', size: 200, user: user) do |box|
           box.cards.build(name: 'Vastwood Hydra', set: 'Magic 2014')
           box.cards.build(name: 'Tamiyo, Collector of Tales', set: 'War of the Spark')
           box.cards.build(name: 'Tamiyo, Collector of Tales', set: 'War of the Spark')
@@ -40,7 +43,7 @@ RSpec.describe Finder::CardFinder do
           Card.create!(name: 'Blade of the Bloodchief', set: 'Zendikar', box: box)
         end
         let!(:box) do
-          Box.create!(name: 'test', size: 200)
+          Box.create!(name: 'test', size: 200, user: user)
         end
   
         it 'returns the amount of cards available, not the amount requested' do
@@ -62,12 +65,12 @@ RSpec.describe Finder::CardFinder do
   
         before do
           @cards = []
-          box = Box.create!(name: 'test', size: 200, leave_box_in_tact: true)
+          box = Box.create!(name: 'test', size: 200, leave_box_in_tact: true, user: user)
           @expected_results = []
           @expected_results << box.cards.create!(name: 'Vastwood Hydra', set: 'Magic 2014')
           @expected_results << box.cards.create!(name: 'Tamiyo, Collector of Tales', set: 'War of the Spark')
 
-          box2 = Box.create!(name: 'test2', size: 200)
+          box2 = Box.create!(name: 'test2', size: 200, user: user)
           box2.cards.create!(name: 'Vastwood Hydra', set: 'Magic 2014')
           @expected_results << box2.cards.create!(name: 'Tamiyo, Collector of Tales', set: 'War of the Spark')
           box2.cards.create!(name: 'Blade of the Bloodchief', set: 'Zendikar')
@@ -93,12 +96,12 @@ RSpec.describe Finder::CardFinder do
   
         before do
           @cards = []
-          box = Box.create!(name: 'test', size: 200, leave_box_in_tact: true)
+          box = Box.create!(name: 'test', size: 200, leave_box_in_tact: true, user: user)
           @expected_results = []
           box.cards.create!(name: 'Vastwood Hydra', set: 'Magic 2014')
           box.cards.create!(name: 'Tamiyo, Collector of Tales', set: 'War of the Spark')
 
-          box2 = Box.create!(name: 'test2', size: 200, leave_box_in_tact: false)
+          box2 = Box.create!(name: 'test2', size: 200, leave_box_in_tact: false, user: user)
           @expected_results << box2.cards.create!(name: 'Tamiyo, Collector of Tales', set: 'War of the Spark')
           box2.cards.create!(name: 'Blade of the Bloodchief', set: 'Zendikar')
         end
@@ -123,7 +126,7 @@ RSpec.describe Finder::CardFinder do
   
         before do
           @cards = []
-          box = Box.create!(name: 'test', size: 200, leave_box_in_tact: true)
+          box = Box.create!(name: 'test', size: 200, leave_box_in_tact: true, user: user)
           box.cards.create!(name: 'Blade of the Bloodchief', set: 'Zendikar')
         end
   

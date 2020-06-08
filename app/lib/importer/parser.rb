@@ -11,9 +11,18 @@ module Importer
             @amount = parse_amount(value)
         end
 
-        def parse_input
+        def parse_cardnames_list
+            Card.transaction do
+                cards = []
+                input.each do |input|
+                    put_card_in_box(cards, input, "Set Unknown")
+                end
+                cards
+            end
+        end
+
+        def parse_raw_input
             validate_input
-            result = ""
                 Card.transaction do
                     cards = []
                     card_rows = input.split("; ").in_groups(3)
@@ -47,8 +56,12 @@ module Importer
             amount.gsub("x","").to_i
         end
 
-        def self.parse_input(input)
-            new(input).parse_input
+        def self.parse_raw_input(input)
+            new(input).parse_raw_input
+        end
+
+        def self.parse_cardnames_list(input)
+            new(input).parse_cardnames_list
         end
     end
 end

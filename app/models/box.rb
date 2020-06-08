@@ -5,4 +5,9 @@ class Box < ApplicationRecord
     def space_available
         self.size - self.cards.count
     end
+
+
+    def self.types
+        [StorageBox, Deckbox, Tradebinder]
+    end
 end

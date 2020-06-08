@@ -1,12 +1,15 @@
 require 'rails_helper'
 require 'support/string_tool'
+require './spec/factories/factories.rb'
 
 RSpec.describe ImportHelper do
+  let(:user) { FactoryBot.create(:user) }
+
     describe ".generate_return_message" do # '.' for class method
         describe " To generate a message containing the correct cards." do
           before do
             @cards = []
-            box = Box.create!(name: "test", size: 200)
+            box = Box.create!(name: "test", size: 200, user: user)
             @cards << box.cards.create!(name: "Tamiyo, Collector of Tales", set: "War of the Spark")
             @cards << box.cards.create!(name: "Tamiyo, Collector of Tales", set: "War of the Spark")
             @cards << box.cards.create!(name: "Blade of the Bloodchief", set: "Zendikar")
@@ -25,8 +28,8 @@ RSpec.describe ImportHelper do
         describe " To give a list of what cards to put in what box." do
             before do
               @cards = []
-              box = Box.create!(name: "test", size: 2)
-              box2 = Box.create!(name: "another box", size: 3)
+              box = Box.create!(name: "test", size: 2, user: user)
+              box2 = Box.create!(name: "another box", size: 3, user: user)
               @cards << box.cards.create!(name: "Tamiyo, Collector of Tales", set: "War of the Spark")
               @cards << box2.cards.create!(name: "Tamiyo, Collector of Tales", set: "War of the Spark")
               @cards << box2.cards.create!(name: "Blade of the Bloodchief", set: "Zendikar")

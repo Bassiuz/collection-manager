@@ -5,4 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   has_many :boxes
+
+
+  has_many :storage_boxes
+  has_many :deckboxes
+  has_many :traderbinders
 end

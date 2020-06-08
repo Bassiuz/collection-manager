@@ -4,7 +4,14 @@ class ImportsController < ApplicationController
 
   # GET /import
   def create
-    @cards = Importer::Parser.parse_input(params["import_input"])
+    cardnames = []
+
+    keys = params.keys.select { |key| key.to_s.match(/^text_field\d+/) }
+    keys.each do |key|
+      cardnames << params[key] unless params[key].blank?
+    end
+
+    @cards = Importer::Parser.parse_cardnames_list(cardnames)
   end
 
   def edit
@@ -14,6 +21,11 @@ class ImportsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_import
       @import = ""
+      @labels = []
+      label_count = 15
+      (0..label_count).each do |i|
+        @labels << {id: i , name: "text_field" + i.to_s}
+      end
     end
 
     def handle_errors(exception)
