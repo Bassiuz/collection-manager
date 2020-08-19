@@ -16,7 +16,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 sh docker rm --force collection-manager
-                docker build --tag collection-manager:1.0 .
+                sh docker build --tag collection-manager:1.0 .
             }
         }
         stage('Deploy') {
