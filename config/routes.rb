@@ -7,7 +7,10 @@ Rails.application.routes.draw do
     resources type.to_s.pluralize.underscore.to_sym, controller: :boxes
   end
 
-  resources :imports
+  # resources :imports
+
+  get :imports, to: 'imports#index'
+  post :imports, to: 'imports#create'
 
   root to: "cards#index"
 

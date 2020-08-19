@@ -1,9 +1,16 @@
-<%= form_for @import do |f| %>
 <h1>Import</h1>
-    <% @labels.each do |label| %>
-        <%= f.text_field label[:name] %>
-        <br/>
-    <% end %>
-    <%= f.submit "Submit" %>
-    <%= @error&.message %>
-<% end %>
+
+<div data-controller='import'>
+    <%= form_with(url: '/imports', method: :post, local: true) do %>
+        <div data-target='import.textfields'>
+        </div>
+        <button data-action='click->import#addField'>Add field</button>
+
+
+        <%= submit_tag("Submit") %>
+    <% end -%>
+
+    <template data-target='import.template'>
+        <div class='wrapper'><%= text_field_tag('name[]') %> <span data-action="click->import#remove">Remove</span></div>
+    </template>
+</div>
