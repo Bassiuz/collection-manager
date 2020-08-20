@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'Testing..'
+                bundle exec rspec
+                bundle exec cucumber
             }
         }
     }
