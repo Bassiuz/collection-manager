@@ -1,4 +1,4 @@
-@todo
+@wip
 Feature: Card retrieve
     In order to find the cards I want
     As a card collector

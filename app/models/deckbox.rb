@@ -1,0 +1,2 @@
+class Deckbox < Box
+end

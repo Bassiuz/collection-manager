@@ -5,8 +5,8 @@
   <div class="form-inputs">
     <%= f.input :name %>
 
-    <%= f.input :box_type, collection: ["Deckbox", "Storage Box", "Tradebinder"] %>
-    <%= f.input :deckname %>
+    <%= f.input :type, collection: Box.types, as: :radio_buttons %>
+    <%= f.input :deck_name %>
 
     <%= f.input :size %>
     <%= f.input :leave_box_in_tact %>
