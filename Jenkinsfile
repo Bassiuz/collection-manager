@@ -16,9 +16,7 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
-                        sh '[ "$(docker ps -a | grep collection-manager-master)" ] && docker rm --force collection-manager-master'
-                        sh 'docker build --tag collection-manager:1.0 .'
-                        sh 'docker run --publish 3000:3000 --detach --name collection-manager-master collection-manager:1.0'
+                        build job: 'Collection Manager - Build Master to local Docker'
                     }
                 }
             }
