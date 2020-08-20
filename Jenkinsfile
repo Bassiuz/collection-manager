@@ -15,8 +15,8 @@ pipeline {
         stage('Trigger new job') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'docker') {
-                        build job: 'test-with-bash'
+                    if (env.BRANCH_NAME == 'master') {
+                        build job: 'Collection Manager - Build Master to local Docker'
                     }
                 }
             }
