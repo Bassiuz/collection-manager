@@ -2,6 +2,7 @@
 
 <h1>Boxes</h1>
 
+<h2>Deckboxes</h2>
 <table>
   <thead>
     <tr>
@@ -12,7 +13,53 @@
   </thead>
 
   <tbody>
-    <% @boxes.each do |box| %>
+    <% @deck_boxes.each do |box| %>
+      <tr>
+        <td><%= box.name %></td>
+        <td><%= box.size %></td>
+        <td><%= link_to 'Show', box %></td>
+        <td><%= link_to 'Edit', edit_box_path(box) %></td>
+        <td><%= link_to 'Destroy', box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Tradebinders</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trade_binders.each do |box| %>
+      <tr>
+        <td><%= box.name %></td>
+        <td><%= box.size %></td>
+        <td><%= link_to 'Show', box %></td>
+        <td><%= link_to 'Edit', edit_box_path(box) %></td>
+        <td><%= link_to 'Destroy', box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Storageboxes</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Size</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @storage_boxes.each do |box| %>
       <tr>
         <td><%= box.name %></td>
         <td><%= box.size %></td>

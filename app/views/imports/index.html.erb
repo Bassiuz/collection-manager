@@ -1,0 +1,16 @@
+<h1>Import</h1>
+
+<div data-controller='import'>
+    <%= form_with(url: '/imports', method: :post, local: true) do %>
+        <div data-target='import.textfields'>
+        </div>
+        <button data-action='click->import#addField'>Add field</button>
+
+
+        <%= submit_tag("Submit") %>
+    <% end -%>
+
+    <template data-target='import.template'>
+        <div class='wrapper'><%= text_field_tag('name[]') %> <span data-action="click->import#remove">Remove</span></div>
+    </template>
+</div>

@@ -1,0 +1,3 @@
+class Tradebinder < Box
+
+end

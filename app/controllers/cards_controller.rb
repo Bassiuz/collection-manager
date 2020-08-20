@@ -7,18 +7,9 @@ class CardsController < ApplicationController
     @cards = Card.all
   end
 
-  # GET /cards/1
-  # GET /cards/1.json
-  def show
-  end
-
   # GET /cards/new
   def new
     @card = Card.new
-  end
-
-  # GET /cards/1/edit
-  def edit
   end
 
   # POST /cards

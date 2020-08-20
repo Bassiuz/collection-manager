@@ -1,0 +1,3 @@
+class StorageBox < Box
+
+end
