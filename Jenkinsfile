@@ -1,5 +1,9 @@
 pipeline {
     agent { dockerfile true }
+    environment {
+        registry = "bassiuz/collection-manager"
+        registryCredential = 'dockerhub'
+    }
     stages {
         stage('Test') {
             steps {
@@ -9,9 +13,8 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                node{
-                    def customImage = docker.build("collection-manager:${env.BUILD_ID}")
-                    customImage.push()
+                script {
+                    docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
