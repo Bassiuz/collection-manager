@@ -11,10 +11,12 @@ pipeline {
                 sh "bundle exec cucumber"
             }
         }
-        
+
         stage('Trigger new job') {
-            if (env.BRANCH_NAME == 'docker') {
-                build job: 'test-with-bash'
+            steps {
+                if (env.BRANCH_NAME == 'docker') {
+                    build job: 'test-with-bash'
+                }
             }
         }
     }
