@@ -12,7 +12,9 @@ pipeline {
             }
         }
         stage('Trigger new job') {
-           build job: 'test-with-bash'
+            if (env.BRANCH_NAME == 'docker') {
+                build job: 'test-with-bash'
+            }
         }
     }
 }
