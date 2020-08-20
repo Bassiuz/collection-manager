@@ -9,8 +9,10 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                def customImage = docker.build("collection-manager:${env.BUILD_ID}")
-                customImage.push()
+                node{
+                    def customImage = docker.build("collection-manager:${env.BUILD_ID}")
+                    customImage.push()
+                }
             }
         }
     }
