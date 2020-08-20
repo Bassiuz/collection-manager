@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                rvm 'bundle exec rspec'
-                rvm 'bundle exec cucumber'
+                sh "bundle exec rspec"
+                sh "bundle exec cucumber"
             }
         }
     }
