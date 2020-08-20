@@ -11,12 +11,8 @@ pipeline {
                 sh "bundle exec cucumber"
             }
         }
-        stage('Publish') {
-            steps {
-                script {
-                    docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
+        stage('Trigger new job') {
+           build job: 'test-with-bash'
         }
     }
 }
