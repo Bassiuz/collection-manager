@@ -14,8 +14,10 @@ pipeline {
 
         stage('Trigger new job') {
             steps {
-                if (env.BRANCH_NAME == 'docker') {
-                    build job: 'test-with-bash'
+                script {
+                    if (env.BRANCH_NAME == 'docker') {
+                        build job: 'test-with-bash'
+                    }
                 }
             }
         }
