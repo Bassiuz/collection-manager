@@ -1,19 +1,19 @@
 FROM ruby:2.6.5
-RUN apt-get update -qq && apt-get install -y nodejs yarn postgresql-client
-RUN mkdir /myapp
-WORKDIR /myapp
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
-RUN gem install bundler -v 2.1.4
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -qq && apt-get install -y build-essential nodejs yarn
+
+ENV APP_HOME /app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+RUN gem install bundler:2.1.4
+ADD Gemfile* $APP_HOME/
 RUN bundle install
-COPY . .
 
-# Add a script to be executed every time the container starts.
-#COPY entrypoint.sh /usr/bin/
-#RUN chmod +x /usr/bin/entrypoint.sh
-#ENTRYPOINT ["entrypoint.sh"]
-
-EXPOSE 3000
-
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+ADD . $APP_HOME
+RUN yarn install --check-files
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+CMD ["rails","server","-b","0.0.0.0"]
